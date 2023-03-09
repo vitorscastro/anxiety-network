@@ -1,0 +1,12 @@
+Not really an anxiety network.
+
+Stack:
+- DB: PostgreSQL
+- Backend: Python with FastAPI
+- Frontend: React
+
+Purpose:
+- People
+- Skills
+- People have skills 
+- CRUD actions
