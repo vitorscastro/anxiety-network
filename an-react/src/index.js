@@ -3,11 +3,26 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
+import Home from './component/Home';
+import Person from './component/Person';
+import Skill from './component/Skill';
+import NavbarLayout from './component/NavbarLayout';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <Router>
+      <Routes>
+        <Route element={<App />}>
+          {/* <Route path="/" element={<Home />} /> */}
+          <Route path="/" element={<NavbarLayout />}>
+            <Route path="/person" element={<Person />} />
+            <Route path="/skill" element={<Skill />} />
+          </Route>
+        </Route>
+      </Routes>
+    </Router>
   </React.StrictMode>
 );
 
