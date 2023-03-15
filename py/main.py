@@ -1,6 +1,7 @@
 from typing import Union
 from fastapi import FastAPI, Depends
 import psycopg2
+import psycopg2.extras
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
@@ -43,3 +44,10 @@ def test_db_connect(conn = Depends(setup_db)):
    row = cur.fetchone()
    return {"status": "success: " + str(row)}
 
+@app.get("/person")
+def get_person(conn = Depends(setup_db)):
+   cur = conn.cursor(cursor_factory=psycopg2.extras.NamedTupleCursor)
+   cur.execute("SELECT * FROM person")
+   rows = cur.fetchall()
+   cur.close()
+   return (rows)
