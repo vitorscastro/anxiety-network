@@ -3,6 +3,12 @@ from fastapi import FastAPI, Depends
 import psycopg2
 import psycopg2.extras
 from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
+
+class Person(BaseModel):
+   id: int
+   firstName: str
+   lastName: str
 
 app = FastAPI()
 
@@ -51,3 +57,9 @@ def get_person(conn = Depends(setup_db)):
    rows = cur.fetchall()
    cur.close()
    return (rows)
+
+@app.post("/person")
+def update_person(person: Person, conn = Depends(setup_db)):
+   cur = conn.cursor()
+   cur.close()
+   return "abc"
