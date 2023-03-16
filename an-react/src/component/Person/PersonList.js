@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import Person from './Person';
 
-export default function Person(id) {
+export default function PersonList(id) {
    const url = "http://localhost:8000/person";
    const [personResponse, setPersonResponse] = useState(null);
-   //const {id} = useParams();
 
    useEffect(() => {
       if (id) {
@@ -21,17 +21,14 @@ export default function Person(id) {
    }
 
    let output = personResponse.map(p => (
-      <div className="card mb-3" key={p[0]}>
-         <div className="card-body">
-            <p className="card-text">{p[1] + " " + p[2]}</p>
-         </div>
-      </div>
+      <Person
+         firstName={p[1]}
+         lastName={p[2]}
+         key={p[0]}
+      />
    ));
 
-   debugger;
-
    return (
-      // <div>{`person ${personResponse}`}</div>
       <>
          {output}
       </>
