@@ -22,6 +22,7 @@ export default function PersonList(id) {
 
    let output = personResponse.map(p => (
       <Person
+         id={p[0]}
          firstName={p[1]}
          lastName={p[2]}
          key={p[0]}

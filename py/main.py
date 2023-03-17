@@ -60,6 +60,18 @@ def get_person(conn = Depends(setup_db)):
 
 @app.post("/person")
 def update_person(person: Person, conn = Depends(setup_db)):
-   cur = conn.cursor()
-   cur.close()
-   return "abc"
+   update_sql = """UPDATE person SET
+      first_name = %s,
+      last_name = %s
+      WHERE id = %s"""
+   
+   try:
+      cur = conn.cursor()
+      cur.execute(update_sql, (person.firstName, person.lastName, person.id))
+      updated_rows = cur.rowcount
+      conn.commit()
+   except (Exception, psycopg2.DatabaseError) as error:
+      print("DB error: " + error)
+   finally:
+      cur.close()
+   return updated_rows
